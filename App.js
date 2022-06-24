@@ -1,20 +1,77 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import ReactNative from 'react-native';
+import { FlatList, StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
+import { DrawerContent } from './Screens/DrawerContent';
+import { NavigationContainer } from '@react-navigation/native';
+import RootScreen from './Screens/RootScreen/RootScreen';
+import Settings from './Screens/Settings';
+import Home from './Screens/LoginScreens/Home';
+import Form from './Screens/LoginScreens/Form';
+import Nav from './Navigator/Nav';
+import Lfrii from './Screens/Lfrii';
+import Formation from './Screens/Formation';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function Ddd () {
+  return(
+    <View>
+      
+    <Drawer.Navigator  initialRouteName= 'Lfrii'
+     drawerContent={props => <DrawerContent{...props}  />}
+       screenOptions={{ 
+           drawerStyle:{ 
+           width: 300,
+         },
+       }}
+      
+      >
+        <Drawer.Screen name='Lfrii' component={Lfrii} options={{
+          title: "Yop L'Frii",
+          headerStyle: {
+           backgroundColor: '#4a9bd4',
+           
+         },
+         headerTintColor: '#fff',
+         headerTitleStyle: {
+           fontWeight: 'bold',
+         },
+        }}
+        
+        />
+        
+        <Drawer.Screen name='Settings' component={Settings}/>
+         
+      </Drawer.Navigator>
+      
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+ function App() {  
+  return (
+    
+    <NavigationContainer>
+     {/*
+       */}
+
+<Stack.Navigator>
+   
+   <Stack.Screen name="Home" component={Home} options={{ headerShown: false,}} />
+
+   <Stack.Screen name="Form" component={Form} options={{headerShown: false,}} />
+
+   <Stack.Screen name="Lfrii" component={Ddd }  />
+   
+</Stack.Navigator>
+      
+    </NavigationContainer>
+    
+  );
+}
+
+export default App
